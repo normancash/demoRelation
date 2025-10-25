@@ -7,9 +7,7 @@ import java.time.LocalDate;
 @Table(name="publicacion")
 @NamedQueries({
         @NamedQuery(name="Publicacion.all"
-                ,query="select e from Publicacion e"),
-        @NamedQuery(name="Publicacion.all.tipo",
-        query = "select e from Publicacion e JOIN FETCH e.tipoPublicacion = ?1")
+                ,query="select e from Publicacion e")
    }
 )
 public class Publicacion {
@@ -78,7 +76,6 @@ public class Publicacion {
                 ", titulo='" + titulo + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", fecha=" + fecha +
-                ", tipoPublicacion=" + tipoPublicacion.getId() +
                 '}';
     }
 }

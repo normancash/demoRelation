@@ -2,8 +2,13 @@ package model;
 
 import jakarta.persistence.*;
 
+import java.util.Set;
+
 @Entity
-@Table(name="tipopublicacion")
+@Table(name="TipoPublicacion")
+@NamedQueries({
+        @NamedQuery(name="TipoPublicacion.all",query="select e from TipoPublicacion e")
+})
 public class TipoPublicacion {
 
     @Id
@@ -14,6 +19,9 @@ public class TipoPublicacion {
     private int id;
     private String nombre;
     private String descripcion;
+
+    @OneToMany(mappedBy = "tipoPublicacion",cascade = CascadeType.ALL)
+    private Set<Publicacion> publicaciones;
 
     public int getId() {
         return id;
@@ -39,6 +47,13 @@ public class TipoPublicacion {
         this.descripcion = descripcion;
     }
 
+    public Set<Publicacion> getPublicaciones() {
+        return publicaciones;
+    }
+
+    public void setPublicaciones(Set<Publicacion> publicaciones) {
+        this.publicaciones = publicaciones;
+    }
 
     @Override
     public String toString() {
@@ -46,6 +61,7 @@ public class TipoPublicacion {
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", descripcion='" + descripcion + '\'' +
+                ", publicaciones=" + publicaciones +
                 '}';
     }
 }
