@@ -1,15 +1,15 @@
 package model;
 
 import jakarta.persistence.*;
-import org.hibernate.annotations.UuidGenerator;
-
 import java.time.LocalDate;
 
 @Entity
 @Table(name="publicacion")
 @NamedQueries({
         @NamedQuery(name="Publicacion.all"
-                ,query="select e from Publicacion e")
+                ,query="select e from Publicacion e"),
+        @NamedQuery(name="Publicacion.all.tipo",
+        query = "select e from Publicacion e JOIN FETCH e.tipoPublicacion = ?1")
    }
 )
 public class Publicacion {
@@ -26,6 +26,18 @@ public class Publicacion {
     private String titulo;
     private String descripcion;
     private LocalDate fecha;
+    //RELACION
+    @ManyToOne(fetch=FetchType.LAZY,optional = false)
+    @JoinColumn(name="tipoPublicacion_id")
+    private TipoPublicacion tipoPublicacion;
+
+    public TipoPublicacion getTipoPublicacion() {
+        return tipoPublicacion;
+    }
+
+    public void setTipoPublicacion(TipoPublicacion tipoPublicacion) {
+        this.tipoPublicacion = tipoPublicacion;
+    }
 
     public Integer getId() {
         return id;
@@ -66,6 +78,7 @@ public class Publicacion {
                 ", titulo='" + titulo + '\'' +
                 ", descripcion='" + descripcion + '\'' +
                 ", fecha=" + fecha +
+                ", tipoPublicacion=" + tipoPublicacion.getId() +
                 '}';
     }
 }

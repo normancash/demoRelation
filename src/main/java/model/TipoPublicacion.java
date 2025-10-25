@@ -7,7 +7,9 @@ import jakarta.persistence.*;
 public class TipoPublicacion {
 
     @Id
-    @SequenceGenerator(name="tipoPubSeq",sequenceName = "tipoPubSeq",allocationSize = 1,initialValue = 1)
+    @SequenceGenerator(name="tipoPubSeq"
+            ,sequenceName = "tipoPubSeq"
+            ,allocationSize = 1,initialValue = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "tipoPubSeq")
     private int id;
     private String nombre;
@@ -35,5 +37,15 @@ public class TipoPublicacion {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+
+    @Override
+    public String toString() {
+        return "TipoPublicacion{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                '}';
     }
 }
